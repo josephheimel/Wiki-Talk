@@ -1,12 +1,8 @@
-Maybe look into an AI to find important words in a wiki page
+Maybe look into an Algoritm to find important words in a wiki page
 -play wikipedia race with all link text on a page
 -rank link text by how specific it is to the main page (ie how far away it can get from main page)
 	-how many pages away without being a page already visited by another node in the tree
--give new words to player when they meet some similarity to the page name/answer (ex 3 letters, correct first letter...)	
-or
--give new words to player in return for banked words
-or
--do it somewhat arbitrarily
+
 
 Network Functionality (Scary) - Start with Hello World
 
@@ -18,11 +14,21 @@ Main Menu - Start with How to play
 		-find
 -Word Bank (only one, shared across games)
 -How to play
--About (Game, Me {picture made of words[actual picture as gaslight joke or text picture]})
+-About
+
+-Most viewed wiki pages
+
 
 Bugs:
 
 -Change text input box to off gray (maybe)
--Find different font
+-Make different font
 -Do something about pixelated circles
 -Make words appear by a big bang effect and slowly expand logrithmically to their final position
+
+
+Feedback:
+
+-dragging is confusing
+-text input box misclick
+-competitive mode/challenge other player with pages/custom make words

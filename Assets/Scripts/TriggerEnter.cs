@@ -4,7 +4,25 @@ using UnityEngine;
 
 public class TriggerEnter : MonoBehaviour
 {
-    // Y Offset
+    // Hint Word Instantiator
+    [SerializeField] GameObject hintWordInstantiator;
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.GetComponent<MouseDragBehaviour>().colliderActive)
+        {
+            hintWordInstantiator.GetComponent<HintWordInstantiator>().OnBlackHoleTrigger(collision.gameObject);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        collision.gameObject.GetComponent<MouseDragBehaviour>().colliderActive = true;
+    }
+
+
+    //              Word Bank Code
+    /*    // Y Offset
     public float y_off;
     // Number of this field
     [SerializeField] int num;
@@ -24,4 +42,5 @@ public class TriggerEnter : MonoBehaviour
         // Don't take more text / Register text
         wordBank.GetComponent<WordBankManager>().RegisterWord(collision.gameObject, num);
     }
+    */
 }

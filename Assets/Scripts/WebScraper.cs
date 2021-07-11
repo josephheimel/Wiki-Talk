@@ -38,7 +38,15 @@ public class WebScraper : MonoBehaviour
         List<string> cleanWords = new List<string>();
         for(int i = 0; i < text.Length; i++)
         {
+            //Isolate link text from rest of html
             text[i] = text[i].Split('"')[0];
+
+            //Check if string is the page name
+            if (text[i].Equals(keyWord, System.StringComparison.CurrentCultureIgnoreCase))
+            {
+                text[i] = "###";
+            }
+
             text[i] = text[i].Replace('_', ' ');
             text[i] = text[i].Replace('-', ' ');
 
@@ -48,7 +56,7 @@ public class WebScraper : MonoBehaviour
             {
                 // Further split each word in a phrase into its own list element of main list
                 string[] tempArr = text[i].Split(' ');
-                foreach(string s in tempArr)
+                foreach (string s in tempArr)
                 {
                     cleanWords.Add(s);
                 }
@@ -60,28 +68,40 @@ public class WebScraper : MonoBehaviour
         IEnumerable<string> distinctWords = cleanWords.Distinct();
         List<string> words = distinctWords.ToList();
 
+        // Remove common words from list
+        words = words.Except(commonWords, System.StringComparer.CurrentCultureIgnoreCase).ToList();
+
         // Remove Keyword from list
         for(int i = 0; i < words.Count; i++)
         {
             if (words[i].Equals(keyWord, System.StringComparison.CurrentCultureIgnoreCase))
             {
-                words.RemoveAt(i);
+                //words.RemoveAt(i);
             }
         }
 
-        foreach(string w in words)
-        {
-            Debug.Log(w);
-        }
+        //Printout
+        //foreach (string w in words)
+        //{
+        //    Debug.Log(w);
+        //}
 
         return words;
     }
+
 
     /*
      * Placeholder for function to organize words in the list
      */
     List<string> OrganizeWords(List<string> unorganizedWords)
     {
-        return unorganizedWords;
+        List<string> organizedWords = new List<string>();
+
+        foreach(string page in unorganizedWords)
+        {
+            //Make a tree of links and a list of visited links, don't revisit links, count children of each original branch, more children means broader idea
+        }
+
+        return organizedWords;
     }
 }

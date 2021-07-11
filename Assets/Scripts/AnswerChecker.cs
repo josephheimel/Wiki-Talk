@@ -4,6 +4,7 @@ using System;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System.Text.RegularExpressions;
 
 public class AnswerChecker : MonoBehaviour
 {
@@ -14,17 +15,22 @@ public class AnswerChecker : MonoBehaviour
     // Whether correct answer is found
     public bool correctAnswer;
     // Toggle for white text on correct answer
-    [SerializeField] private bool revealCorrectAnswer;
+    [SerializeField] private bool highlightOnCorrectAnswer;
+
 
     private void Update()
     {
         string text = inputField.GetComponent<TMP_InputField>().text;
 
-        if(text.Equals(fileName,StringComparison.OrdinalIgnoreCase))
+        //Strip Characters (period, comma, underscore, dash, apostrophy, space)
+        text = Regex.Replace(text, @"[.,_\-' ]", "");
+        fileName = Regex.Replace(fileName, @"[.,_\-' ]", "");
+
+        if (text.Equals(fileName,StringComparison.OrdinalIgnoreCase))
         {
             correctAnswer = true;
 
-            if (revealCorrectAnswer)
+            if (highlightOnCorrectAnswer)
             {
                 GetComponent<RawImage>().color = Color.white;
             }
