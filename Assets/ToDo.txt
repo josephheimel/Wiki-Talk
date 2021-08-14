@@ -1,23 +1,16 @@
-Maybe look into an Algoritm to find important words in a wiki page
--play wikipedia race with all link text on a page
--rank link text by how specific it is to the main page (ie how far away it can get from main page)
-	-how many pages away without being a page already visited by another node in the tree
-
-
 Network Functionality (Scary) - Start with Hello World
+	-bluetooth or wifi with code
 
-Main Menu - Start with How to play 
+Main Menu
 -Play
 	-list of ongoing games
 	-new game
 		-create
 		-find
--Word Bank (only one, shared across games)
 -How to play
 -About
 
--Most viewed wiki pages
-
+-Most viewed wiki pages  :  https://www.clemesha.org/work/the-wiki-game/ (Ask wiki game creator)
 
 Bugs:
 
@@ -26,9 +19,34 @@ Bugs:
 -Do something about pixelated circles
 -Make words appear by a big bang effect and slowly expand logrithmically to their final position
 
-
 Feedback:
 
 -dragging is confusing
 -text input box misclick
--competitive mode/challenge other player with pages/custom make words
+
+Multiplayer Modes:
+
+-co-op
+	-both players have a different main word
+		-players seperately navigate wikipedia trying to be on the same page
+		-players can either use a word to navigate or pass it to the other player for extra words and a hint of your location
+-competitive
+		-solo
+	-challenge other player with pages
+	-custom make words
+	-Player is given 20 (or so) links and one of them is the correct page
+		-Guessing incorrectly will give the player 3 (or so) more links
+	
+		-multi
+	-half of words are yours and the other half are theirs
+		-the correct answer is determined by a majority of links, so it can be stolen
+
+
+-Both
+	-half of words are yours and the other half are theirs, 
+	 you need to figure out what yours is while possibly preventing them from doing so as well,
+	 but you can both win by navigating to the same page
+		-the correct answer is determined by a majority of links, so it can be stolen
+	-players can win by solving their own page or by solving any of their opponents pages
+	-wrong answer navigates to new page (correct answer is the same object with different text)
+	-passed words can be "sent" back to give both players and extra link

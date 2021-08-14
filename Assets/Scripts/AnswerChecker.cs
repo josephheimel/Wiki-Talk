@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 public class AnswerChecker : MonoBehaviour
 {
     // Text Entry Field
-    [SerializeField] private GameObject inputField;
+    public string inputField;
     // Text file
     public string fileName;
     // Whether correct answer is found
@@ -20,23 +20,21 @@ public class AnswerChecker : MonoBehaviour
 
     private void Update()
     {
-        string text = inputField.GetComponent<TMP_InputField>().text;
-
         //Strip Characters (period, comma, underscore, dash, apostrophy, space)
-        text = Regex.Replace(text, @"[.,_\-' ]", "");
+        inputField = Regex.Replace(inputField, @"[.,_\-' ]", "");
         fileName = Regex.Replace(fileName, @"[.,_\-' ]", "");
 
-        if (text.Equals(fileName,StringComparison.OrdinalIgnoreCase))
+        if (inputField.Equals(fileName,StringComparison.OrdinalIgnoreCase))
         {
             correctAnswer = true;
 
             if (highlightOnCorrectAnswer)
             {
-                GetComponent<RawImage>().color = Color.white;
+                //GetComponent<RawImage>().color = Color.white;
             }
         } else {
             correctAnswer = false;
-            GetComponent<RawImage>().color = Color.gray;
+            //GetComponent<RawImage>().color = Color.gray;
         }
     }
 }

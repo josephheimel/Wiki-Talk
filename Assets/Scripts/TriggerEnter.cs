@@ -11,7 +11,15 @@ public class TriggerEnter : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<MouseDragBehaviour>().colliderActive)
         {
-            hintWordInstantiator.GetComponent<HintWordInstantiator>().OnBlackHoleTrigger(collision.gameObject);
+            if (gameObject.name == "Black Hole Collider")
+            {
+                hintWordInstantiator.GetComponent<HintWordInstantiator>().OnBlackHoleTrigger(collision.gameObject);
+            }
+
+            if (gameObject.name == "Solution")
+            {
+                hintWordInstantiator.GetComponent<HintWordInstantiator>().Navigate(collision.gameObject);
+            }
         }
     }
 

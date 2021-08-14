@@ -15,20 +15,18 @@ public class HintWordInstantiator : MonoBehaviour
 
     // Web Scraper - gets list of hint words
     [SerializeField] private GameObject webScraper;
-    // Answer Checker
-    [SerializeField] private GameObject answerChecker;
-    // Word Bank Object
-    [SerializeField] private GameObject wordBank;
     // Hint Word Prefab
     [SerializeField] private GameObject prefab;
     // Location to spawn prefab
     [SerializeField] private Transform center;
-    // Transform for the canvas
-    [SerializeField] private Transform canvasTransform;
+    // Parent for text objects
+    [SerializeField] private GameObject textObjectParent;
     // Position anchor for text objects
     [SerializeField] private Rigidbody2D textAnchor;
 
+    //Queue of unused words
     private Queue<string> hintWords;
+
 
     private void Start()
     {
@@ -44,8 +42,7 @@ public class HintWordInstantiator : MonoBehaviour
             answer = pages[Random.Range(0,pages.Length-1)];
         }
 
-        // Set Answer
-        answerChecker.GetComponent<AnswerChecker>().fileName = answer;
+
 
 
         // Get hint word list using function call
@@ -67,7 +64,7 @@ public class HintWordInstantiator : MonoBehaviour
         // Instantiate at the Send/Recieve object and zero rotation.
         GameObject instantiatedObject = Instantiate(prefab, center.position, Quaternion.identity);
         // Set Parent
-        instantiatedObject.transform.SetParent(canvasTransform);
+        instantiatedObject.transform.SetParent(textObjectParent.transform);
         // Set Anchor
         tempJoint = instantiatedObject.GetComponent<DistanceJoint2D>();
         tempJoint.connectedBody = textAnchor;
@@ -77,8 +74,6 @@ public class HintWordInstantiator : MonoBehaviour
         instantiatedObject.transform.Translate(randomDirection);
         // Set text
         instantiatedObject.GetComponent<TextMeshProUGUI>().text = hintWords.Dequeue();
-        // Attach Word Bank Manager
-        instantiatedObject.GetComponent<MouseDragBehaviour>().wordBank = wordBank;
     }
 
     public void OnBlackHoleTrigger(GameObject textObject)
@@ -91,6 +86,21 @@ public class HintWordInstantiator : MonoBehaviour
 
         // Create new text
         CreateTextObject();
+    }
+
+    public void Navigate(GameObject textObject)
+    {
+        //empty queue and destroy old objects
+        hintWords.Clear();
+        foreach (Transform child in textObjectParent.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+
+        //Change answer and call instantiator
+        answer = textObject.GetComponent<TextMeshProUGUI>().text;
+        InstantiateHintWords();
     }
 }
 
