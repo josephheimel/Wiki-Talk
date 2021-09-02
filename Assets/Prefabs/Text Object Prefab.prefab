@@ -15,8 +15,8 @@ GameObject:
   - component: {fileID: -1731912883084523477}
   - component: {fileID: 693380030412857796}
   - component: {fileID: 8726700757017609906}
-  m_Layer: 6
-  m_Name: Button Prefab
+  m_Layer: 5
+  m_Name: Text Object Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -169,7 +169,8 @@ MonoBehaviour:
   joint: {fileID: 8726700757017609906}
   circle: {fileID: 8144058348047427412}
   rect: {fileID: 5928719893314434884}
-  wordBank: {fileID: 0}
+  colliderActive: 0
+  passedTextObject: 0
 --- !u!50 &693380030412857796
 Rigidbody2D:
   serializedVersion: 4

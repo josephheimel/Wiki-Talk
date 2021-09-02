@@ -6,19 +6,30 @@ public class TriggerEnter : MonoBehaviour
 {
     // Hint Word Instantiator
     [SerializeField] GameObject hintWordInstantiator;
+    // Partner's Hint Word Instantiator
+    [SerializeField] GameObject otherHintWordInstantiator;
+    // Win Checker
+    [SerializeField] GameObject winChecker;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.gameObject.GetComponent<MouseDragBehaviour>().passedTextObject)
+        {
+            return;
+        }
+
         if (collision.gameObject.GetComponent<MouseDragBehaviour>().colliderActive)
         {
             if (gameObject.name == "Black Hole Collider")
             {
-                hintWordInstantiator.GetComponent<HintWordInstantiator>().OnBlackHoleTrigger(collision.gameObject);
+                otherHintWordInstantiator.GetComponent<HintWordInstantiator>().Pass(collision.gameObject);
+                hintWordInstantiator.GetComponent<HintWordInstantiator>().Decrement();
             }
 
-            if (gameObject.name == "Solution")
+            if (gameObject.name == "Navigate Box")
             {
                 hintWordInstantiator.GetComponent<HintWordInstantiator>().Navigate(collision.gameObject);
+                winChecker.GetComponent<AnswerChecker>().CheckAnswer();
             }
         }
     }
@@ -27,28 +38,4 @@ public class TriggerEnter : MonoBehaviour
     {
         collision.gameObject.GetComponent<MouseDragBehaviour>().colliderActive = true;
     }
-
-
-    //              Word Bank Code
-    /*    // Y Offset
-    public float y_off;
-    // Number of this field
-    [SerializeField] int num;
-    // Bank manager object
-    [SerializeField] GameObject wordBank;
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        // Disable colliders
-        collision.gameObject.GetComponent<DistanceJoint2D>().enabled = false;
-        collision.gameObject.GetComponent<CircleCollider2D>().enabled = false;
-
-        // Center text
-        Vector3 offset = new Vector3(0, y_off, 0);
-        collision.gameObject.transform.position = transform.position + offset;
-
-        // Don't take more text / Register text
-        wordBank.GetComponent<WordBankManager>().RegisterWord(collision.gameObject, num);
-    }
-    */
 }

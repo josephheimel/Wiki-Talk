@@ -8,8 +8,9 @@ public class MouseDragBehaviour : MonoBehaviour, IDragHandler, IBeginDragHandler
     [SerializeField] private DistanceJoint2D joint;
     [SerializeField] private CircleCollider2D circle;
     [SerializeField] private RectTransform rect;
-    public GameObject wordBank;
+
     public bool colliderActive = false;
+    public bool passedTextObject = false;
 
     /// This method will be called on the start of the mouse drag
     public void OnBeginDrag(PointerEventData eventData)
@@ -18,8 +19,6 @@ public class MouseDragBehaviour : MonoBehaviour, IDragHandler, IBeginDragHandler
         {
             joint.enabled = false;
             circle.enabled = false;
-        } else {
-            wordBank.GetComponent<WordBankManager>().DeregisterWord(gameObject);
         }
 
         lastMousePosition = eventData.position;
