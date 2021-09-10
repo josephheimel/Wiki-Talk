@@ -31,6 +31,8 @@ public class HintWordInstantiator : MonoBehaviour
     private Queue<string> wordQ = new Queue<string>();
     // List of words
     private List<string> words = new List<string>();
+    // Number of instantiated word objects
+    private int activeWords = 0;
 
 
 
@@ -41,9 +43,10 @@ public class HintWordInstantiator : MonoBehaviour
 
     private void Update()
     {
-        if (wordQ.Count > 0)
+        if (wordQ.Count > 0 && activeWords < numberOfWords)
         {
             CreateTextObject(wordQ.Dequeue(), false);
+            activeWords++;
         }
     }
 
@@ -64,43 +67,9 @@ public class HintWordInstantiator : MonoBehaviour
         // Get hint word list using function call
         words = webScraper.GetComponent<WebScraper>().GetWords(pageName);
 
-        // Sort
-        StartCoroutine("Sort");
+        wordQ = new Queue<string>(words);
     }
 
-
-    private IEnumerator Sort()
-    {
-        List<string> organizedWords = new List<string>();
-        Dictionary<string, int> pageViews = new Dictionary<string, int>();
-
-        foreach (string s in words)
-        {
-            int count = webScraper.GetComponent<WebScraper>().GetPageViews(s);
-
-            if (count > 0)
-            {
-                pageViews.Add(s, count);
-            }
-        }
-
-        int i = 0;
-
-        foreach (KeyValuePair<string, int> pair in pageViews.OrderByDescending(key => key.Value))
-        {
-            if (i >= numberOfWords)
-            {
-                break;
-            }
-            i++;
-
-            // Add to list and remove underscores
-            wordQ.Enqueue(pair.Key);
-        }
-
-        yield return null;
-    }
-    
 
     /*
      * @param          text: Pagename to create a text object for
@@ -137,6 +106,9 @@ public class HintWordInstantiator : MonoBehaviour
         // Create new text
         CreateTextObject(textObject.GetComponent<TextMeshProUGUI>().text, true);
 
+        // Change active words
+        activeWords++;
+
         // Change word count
         numberOfWords++;
 
@@ -163,8 +135,8 @@ public class HintWordInstantiator : MonoBehaviour
     private void Clean()
     {
         //empty queue and destroy old objects
-        StopCoroutine("Sort");
         wordQ.Clear();
+        activeWords = 0;
 
         foreach (Transform child in textObjectParent.transform)
         {

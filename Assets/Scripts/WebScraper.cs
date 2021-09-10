@@ -20,62 +20,19 @@ public class WebScraper : MonoBehaviour
         string[] text;
         using (WebClient webClient = new WebClient())
         {
-            text = webClient.DownloadString("https://en.wikipedia.org/wiki/" + keyWord).Split(new string[] { "References" }, StringSplitOptions.None)[0].Split(new string[] { "/wiki/" }, StringSplitOptions.None);
+            text = webClient.DownloadString("https://relatedwords.org/relatedto/" + keyWord).Split(new string[] { "\"terms\":[" }, StringSplitOptions.None)[1].Split(new string[] { "{\"word\":\"" }, 21, StringSplitOptions.None);
         }
 
-        // Clean Strings
+        //// Clean Strings
         List<string> words = new List<string>();
-        for(int i = 0; i < text.Length; i++)
+        for (int i = 1; i < text.Length; i++)
         {
             //Isolate link text from rest of html
             text[i] = text[i].Split('"')[0];
 
-            //Check if string is the page name
-            if (text[i].Equals(keyWord, System.StringComparison.CurrentCultureIgnoreCase))
-            {
-                text[i] = "###";
-            }
-
-
-            string temp = text[i];
-            temp = Regex.Replace(temp, @"[ ]", "");
-
-            if (temp.All(char.IsLetterOrDigit))
-            {
-                words.Add(text[i]);
-            }
+            words.Add(text[i]);
         }
-
-        //unique collection of words in array
-        IEnumerable<string> distinctWords = words.Distinct();
-        words = distinctWords.ToList();
-
 
         return words;
-    }
-
-
-    /*
-     * Get Page Views
-     */
-    public int GetPageViews(string page)
-    {
-        using (WebClient webClient = new WebClient())
-        {
-           
-
-            try
-            {
-                // Get count from html
-                int count = Int32.Parse(webClient.DownloadString("https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/all-agents/" + page + "/monthly/2021070100/2021080100").Split(new string[] { "views\":" }, StringSplitOptions.None)[1].Split(new string[] { "}" }, StringSplitOptions.None)[0]);
-                return count;
-            } 
-            catch(WebException)
-            {
-
-            }
-        }
-
-        return -1;
     }
 }

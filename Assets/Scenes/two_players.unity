@@ -429,8 +429,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   topicList: {fileID: 4900000, guid: 0d692354c7293114aa9caac7a81c5af5, type: 3}
-  numberOfWords: 12
-  pageName: 
+  numberOfWords: 10
+  pageName: game
   pageText: {fileID: 163510064}
   webScraper: {fileID: 194678128}
   prefab: {fileID: 300905135622708903, guid: 1bd54acdb7cf36c40ad2031e15ffa642, type: 3}
@@ -3482,8 +3482,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   topicList: {fileID: 4900000, guid: 0d692354c7293114aa9caac7a81c5af5, type: 3}
-  numberOfWords: 12
-  pageName: 
+  numberOfWords: 10
+  pageName: learn
   pageText: {fileID: 1209233639}
   webScraper: {fileID: 194678128}
   prefab: {fileID: 300905135622708903, guid: 1bd54acdb7cf36c40ad2031e15ffa642, type: 3}
